@@ -1,15 +1,23 @@
 version: "3.9"
 services:
   nginx:
-    image: dockreg.knst.su/ms_nginx
+    image: dockreg.knst.su/ms_nginx.master
     ports:
       - "80:80"
     networks:
       msnet:
           aliases:
             - nginx
+  frontend:
+    image: dockreg.knst.su/ms_frontend.master
+    ports:
+      - "3000:3000"
+    networks:
+      msnet:
+          aliases:
+            - backend
   backend:
-    image: dockreg.knst.su/ms_backend
+    image: dockreg.knst.su/ms_backend.master
     ports:
       - "8080:8080"
     volumes:
