@@ -1,0 +1,38 @@
+version: "3.9"
+services:
+  nginx:
+    image: dockreg.knst.su/ms_nginx
+    ports:
+      - "80:80"
+    networks:
+      msnet:
+          aliases:
+            - nginx
+  backend:
+    image: dockreg.knst.su/ms_backend
+    ports:
+      - "8080:8080"
+    volumes:
+      - /etc/ms/backend:/ms/config
+      - /var/log/ms:/ms/logs
+    networks:
+      msnet:
+          aliases:
+            - backend
+  postgres:
+    image: postgres:13.3
+    environment:
+      POSTGRES_DB: "money_saver"
+      POSTGRES_USER: "money_saver"
+      POSTGRES_PASSWORD: "change_me"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - /var/lib/ms/postgresql:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      msnet:
+          aliases:
+            - database
+networks:
+  msnet:
