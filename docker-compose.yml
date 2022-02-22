@@ -18,6 +18,8 @@ services:
             - backend
   backend:
     image: dockreg.knst.su/ms_backend.master
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "8080:8080"
     volumes:
@@ -32,7 +34,7 @@ services:
     environment:
       POSTGRES_DB: "money_saver"
       POSTGRES_USER: "money_saver"
-      POSTGRES_PASSWORD: "change_me"
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       PGDATA: "/var/lib/postgresql/data/pgdata"
     volumes:
       - /var/lib/ms/postgresql:/var/lib/postgresql/data
