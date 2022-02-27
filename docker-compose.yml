@@ -2,6 +2,9 @@ version: "3.9"
 services:
   nginx:
     image: dockreg.knst.su/ms_nginx.master
+    depends_on:
+      - frontend
+      - backend
     ports:
       - "80:80"
     networks:
@@ -10,6 +13,8 @@ services:
             - nginx
   frontend:
     image: dockreg.knst.su/ms_frontend.master
+    environment:
+      BASE_URL: ${BASE_URL}
     ports:
       - "3000:3000"
     networks:
@@ -22,6 +27,7 @@ services:
       - postgres
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      BASE_URL: ${BASE_URL}
     ports:
       - "8080:8080"
     volumes:
@@ -38,6 +44,7 @@ services:
       POSTGRES_USER: "money_saver"
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       PGDATA: "/var/lib/postgresql/data/pgdata"
+      BASE_URL: ${BASE_URL}
     volumes:
       - /var/lib/ms/postgresql:/var/lib/postgresql/data
     ports:

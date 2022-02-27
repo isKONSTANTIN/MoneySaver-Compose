@@ -4,6 +4,14 @@ RED='\033[0;31m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
+BASE_URL=$(cat ./base_url)
+
+if [ -z "$BASE_URL" ]
+then
+  echo -e "${RED}Enter base url into file!$NC"
+  exit
+fi
+
 if test -f "database_password"; then
   POSTGRES_PASSWORD=$(cat ./database_password)
 else
@@ -14,7 +22,7 @@ fi
 
 cat ./password | docker login https://dockreg.knst.su/ --username $(cat ./login) --password-stdin
 
-POSTGRES_PASSWORD=$POSTGRES_PASSWORD docker-compose up -d
+POSTGRES_PASSWORD=$POSTGRES_PASSWORD BASE_URL=$BASE_URL docker-compose up -d
 
 if [[ $? -eq 0 ]]; then
   echo -e "\nMoneySaver start complited.\ndocker-compose should automatically start containers after system reboot.\nFor stop use 'docker-compose stop'"
