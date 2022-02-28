@@ -20,7 +20,7 @@ services:
     networks:
       msnet:
           aliases:
-            - backend
+            - frontend
   backend:
     image: dockreg.knst.su/ms_backend.master
     depends_on:
