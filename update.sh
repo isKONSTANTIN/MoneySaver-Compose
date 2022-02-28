@@ -4,7 +4,7 @@ echo "Pull git changes.."
 git pull
 
 echo "MoneySaver stopping..."
-docker-compose stop
+docker-compose down
 
 echo "Pull MS changes..."
 docker-compose pull
