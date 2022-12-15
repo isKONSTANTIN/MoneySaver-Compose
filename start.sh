@@ -20,8 +20,6 @@ else
   echo $POSTGRES_PASSWORD > database_password
 fi
 
-cat ./password | docker login https://dockreg.knst.su/ --username $(cat ./login) --password-stdin
-
 POSTGRES_PASSWORD=$POSTGRES_PASSWORD BASE_URL=$BASE_URL docker-compose up -d
 
 if [[ $? -eq 0 ]]; then
