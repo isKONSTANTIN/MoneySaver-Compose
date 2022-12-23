@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   nginx:
-    image: lab.knrg.su:5000/iskonstantin/moneysaver-nginx:master
+    image: reg.lab.knrg.su/iskonstantin/moneysaver-nginx:master
     depends_on:
       - frontend
       - backend
@@ -12,7 +12,7 @@ services:
           aliases:
             - nginx
   frontend:
-    image: lab.knrg.su:5000/iskonstantin/moneysaver-frontend:master
+    image: reg.lab.knrg.su/iskonstantin/moneysaver-frontend:master
     environment:
       BASE_URL: ${BASE_URL}
     ports:
@@ -22,7 +22,7 @@ services:
           aliases:
             - frontend
   backend:
-    image: lab.knrg.su:5000/iskonstantin/moneysaver-backend:master
+    image: reg.lab.knrg.su/iskonstantin/moneysaver-backend:master
     depends_on:
       - postgres
     environment:
